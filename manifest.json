@@ -1,0 +1,17 @@
+{
+    "name": "Live Global News Aggregator",
+    "short_name": "Global News",
+    "description": "Real-time news aggregator from global RSS feeds.",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#f0f2f5",
+    "theme_color": "#006a4e",
+    "icons": [
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/21/21601.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Global News Aggregator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="reading-progress" class="reading-progress"></div>
+
+    <nav class="navbar">
+        <h1>🌐 Live News Aggregator</h1>
+        <p>Real-time updates directly from the source</p>
+        <div class="nav-actions">
+            <button id="show-bookmarks" class="nav-btn" title="Saved Articles">🔖 Saved</button>
+            <button id="theme-toggle" class="nav-btn theme-toggle" title="Toggle Dark Mode">🌙</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Select Region</h2>
+            <ul class="country-list" id="country-list">
+                <!-- Country list and Global View injected here -->
+            </ul>
+        </aside>
+
+        <main class="feed-container" id="feed-container">
+            <div class="feed-header">
+                <div class="header-left">
+                    <h2 id="feed-title">Latest News</h2>
+                    <span id="last-updated" class="news-meta"></span>
+                </div>
+                <div class="header-right">
+                    <input type="text" id="news-search" placeholder="Search news..." class="search-input">
+                    <select id="category-filter" class="category-select">
+                        <option value="all">All Categories</option>
+                        <option value="politics">Politics</option>
+                        <option value="tech">Technology</option>
+                        <option value="sports">Sports</option>
+                        <option value="business">Business</option>
+                    </select>
+                </div>
+            </div>
+            <div class="news-grid" id="news-grid">
+                </div>
+        </main>
+
+        <div class="reader-view" id="reader-view" style="display: none;">
+            <div class="reader-layout">
+                <article class="article-main">
+                    <button id="back-to-feed" class="back-btn">← Back to Feed</button>
+                    
+                    <div class="article-header">
+                        <span id="reader-source" class="news-source"></span>
+                        <h1 id="reader-title" class="native-article-title"></h1>
+                        <div class="reader-actions">
+                            <div id="reader-meta" class="news-meta"></div>
+                            <div class="action-group">
+                                <button id="summarize-article" class="action-btn" title="Quick Summary">✨</button>
+                                <button id="listen-article" class="action-btn" title="Listen">🔊</button>
+                                <button id="share-article" class="action-btn" title="Share">📤</button>
+                                <button id="bookmark-article" class="action-btn" title="Save">📑</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="summary-box" class="summary-box" style="display: none;">
+                        <h3>✨ AI-Lite Summary</h3>
+                        <ul id="summary-content"></ul>
+                    </div>
+
+                    <img id="reader-image" class="native-article-image" src="" alt="Article thumbnail">
+                    <div id="reader-content" class="native-article-content"></div>
+                </article>
+
+                <aside class="article-sidebar">
+                    <h3>Up Next</h3>
+                    <div id="sidebar-news" class="sidebar-grid">
+                        <!-- Mini cards injected here -->
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
