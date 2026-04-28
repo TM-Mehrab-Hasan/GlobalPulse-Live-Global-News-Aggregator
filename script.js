@@ -133,12 +133,15 @@ function initApp() {
         if (!currentArticle) return;
         const title = currentArticle.title;
         const text = `Check out this news: ${title}`;
-        const url = currentArticle.link;
+        
+        // Share a link back to your site with the article link as a parameter
+        const siteUrl = "https://globallivenews.netlify.app/";
+        const shareUrl = `${siteUrl}?article=${encodeURIComponent(currentArticle.link)}`;
 
         if (navigator.share) {
-            navigator.share({ title, text, url });
+            navigator.share({ title, text, url: shareUrl });
         } else {
-            navigator.clipboard.writeText(url);
+            navigator.clipboard.writeText(shareUrl);
             alert('Link copied to clipboard!');
         }
     });
@@ -259,6 +262,10 @@ async function fetchNews(country, silent = false) {
         const uniqueArticlesMap = new Map();
         let processedCount = 0;
 
+        // Check if we need to load a specific article from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedArticleUrl = urlParams.get('article');
+
         for (const feed of feeds) {
             try {
                 const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&api_key=zprir7yxdoacfp6vnie0csedtxxsgqwjanqslxkn`;
@@ -273,11 +280,19 @@ async function fetchNews(country, silent = false) {
                         data.items.slice(0, 5).forEach(item => {
                             const normalizedTitle = (item.title || "").toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
                             if (!uniqueArticlesMap.has(normalizedTitle)) {
-                                uniqueArticlesMap.set(normalizedTitle, {
+                                const articleData = {
                                     ...item,
                                     sourceName: feed.name,
                                     country: country === "Global View" ? (Object.keys(newsSources).find(k => newsSources[k].some(s => s.name === feed.name)) || "Global") : country
-                                });
+                                };
+                                uniqueArticlesMap.set(normalizedTitle, articleData);
+
+                                // If this is the shared article, open it immediately
+                                if (sharedArticleUrl && item.link === sharedArticleUrl) {
+                                    openArticle(articleData);
+                                    // Remove the parameter from URL without refreshing to keep it clean
+                                    window.history.replaceState({}, document.title, window.location.pathname);
+                                }
                             }
                         });
                     }
