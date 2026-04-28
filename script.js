@@ -261,7 +261,7 @@ async function fetchNews(country, silent = false) {
 
         for (const feed of feeds) {
             try {
-                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&api_key=zprir7yxdoacfp6vnie0csedtxxsgqwjanqslxkn`;
                 const res = await fetch(apiUrl, { signal });
                 
                 if (res.status === 429) {
